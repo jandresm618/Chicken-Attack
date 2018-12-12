@@ -17,6 +17,8 @@ public:
 
     void keyPressEvent(QKeyEvent *event);
 
+    ~Item_Grafico();
+
 private:
     QPixmap *image;
 

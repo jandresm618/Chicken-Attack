@@ -20,16 +20,18 @@ public:
     virtual void paint(QPainter *painter,const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     void movimiento();
-    void collides();
 
     bool getId() const;
     void setId(bool value);
+
+    ~Objeto_mov();
 
 private slots:
     void move();
 
 private:
     Movimiento *sim_mov;
+    QList<Objeto_mov*> enemies;
     QPixmap *image;
     QTimer *time_move;
     bool id;

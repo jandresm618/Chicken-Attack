@@ -38,5 +38,15 @@ void Item_Grafico::keyPressEvent(QKeyEvent *event)
     }
     else if(event->key() == Qt::Key_Space /*&& armaFlag*/){
         qDebug()<<"Disparo";
+        Objeto_mov *obj;
+        int xf=rand()%400;
+        int yf=rand()%400;
+        obj=new Objeto_mov(1,x,y,xf,yf);
+        scene()->addItem(obj);
     }
+}
+
+Item_Grafico::~Item_Grafico()
+{
+    delete image;
 }
