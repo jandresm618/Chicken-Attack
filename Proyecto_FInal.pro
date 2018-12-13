@@ -29,16 +29,25 @@ SOURCES += \
         mainwindow.cpp \
     item_grafico.cpp \
     movimiento.cpp \
-    objeto_mov.cpp
+    objeto_mov.cpp \
+    database.cpp \
+    intro.cpp \
+    nombre_partida.cpp
 
 HEADERS += \
         mainwindow.h \
     item_grafico.h \
     movimiento.h \
-    objeto_mov.h
+    objeto_mov.h \
+    database.h \
+    intro.h \
+    nombre_partida.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    database.ui \
+    intro.ui \
+    nombre_partida.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

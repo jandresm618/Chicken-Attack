@@ -6,5 +6,9 @@
         <file>imagenes/mira1.png</file>
         <file>imagenes/pollo.png</file>
         <file>imagenes/señor1.png</file>
+        <file>imagenes/intro.png</file>
+        <file>imagenes/Load.png</file>
+        <file>imagenes/exit.png</file>
+        <file>imagenes/new.png</file>
     </qresource>
 </RCC>
