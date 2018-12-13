@@ -30,17 +30,17 @@ void MainWindow::cargarJuego()
 
 void MainWindow::cargarEscena()
 {
-    QPixmap *imagen=new QPixmap(":/imagenes/fondo.png");
-//    imagen->setDevicePixelRatio(0.5);
-//    imagen->size().setHeight(400);
-//    imagen->size().setWidth(600);
-    imagen->scaled(600,400);
+//    QPixmap *imagen=new QPixmap(":/imagenes/fondo.png");
+////    imagen->setDevicePixelRatio(0.5);
+////    imagen->size().setHeight(400);
+////    imagen->size().setWidth(600);
+//    imagen->scaled(600,400);
     scene=new QGraphicsScene(this);
     scene->setSceneRect(0,0,limit_x,limit_y);
     ui->graphicsView->setScene(scene);
 
-    QBrush *img=new QBrush(Qt::white,*imagen);
-    scene->setBackgroundBrush(*img);
+//    QBrush *img=new QBrush(Qt::white,*imagen);
+//    scene->setBackgroundBrush(*img);
 
     mario=new Item_Grafico(QString(":/imagenes/mario.png"),50,limit_y-200);
     mira=new Item_Grafico(QString(":/imagenes/mira.png"),limit_x/2,limit_y/2);

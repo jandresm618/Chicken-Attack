@@ -94,8 +94,8 @@ void Movimiento::actualizar(float dt)
     QString d;
     calculaVelocidad(dt);
     calculaPosicion(dt);
-//    qDebug()<<d.number(x);
-//    qDebug()<<d.number(y);
+    qDebug()<<d.number(x);
+    qDebug()<<d.number(y);
 }
 
 void Movimiento::movParabolico()
@@ -107,7 +107,7 @@ void Movimiento::movParabolico(int x, int y)
 {
     setAceleracion(0,10);
     calculaVelInicial(x,y,float(DT));
-//    setVelocidad(2,10);
+//    setVelocidad(100,10);
 }
 
 void Movimiento::movRectilineo()

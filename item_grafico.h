@@ -7,7 +7,7 @@
 #include <QDebug>
 #include "objeto_mov.h"
 
-class Item_Grafico: public QGraphicsPixmapItem
+class Item_Grafico: public QGraphicsItem
 {
 public:
     Item_Grafico(QString path, int x, int y);

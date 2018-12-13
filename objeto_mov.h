@@ -9,7 +9,7 @@
 #include "item_grafico.h"
 #include <QGraphicsScene>
 
-class Objeto_mov: public QObject, public QGraphicsPixmapItem
+class Objeto_mov: public QObject, public QGraphicsItem
 {
     Q_OBJECT
 public:
