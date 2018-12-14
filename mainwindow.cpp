@@ -6,9 +6,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    inicio=new Intro;
+    inicio=new Intro;    
     inicio->setModal(true);
     inicio->exec();
+
+    datos=new Data_Base;
+    datos->setModal(true);
+    datos->exec();
+    datos->newLoad=inicio->newLoad;
+
+    nom_partida=new Nombre_Partida;
+    nom_partida->setModal(true);
+    nom_partida->exec();
 
 
     this->showFullScreen();

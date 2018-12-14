@@ -1,25 +1,25 @@
-#ifndef DATABASE_H
-#define DATABASE_H
+#ifndef DATA_BASE_H
+#define DATA_BASE_H
 
-#include <QWidget>
+#include <QDialog>
 
 #include <QDebug>
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlError>
+#include "nombre_partida.h"
 #include <QMessageBox>
 
 namespace Ui {
-class DataBase;
+class Data_Base;
 }
 
-class DataBase : public QWidget
+class Data_Base : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit DataBase(QWidget *parent = nullptr);
-
+    explicit Data_Base(QWidget *parent = nullptr);
     void crearTabladeUsuarios();
     void crearTabladeDatos();
     void crearTabladeRecords();
@@ -34,18 +34,24 @@ public:
 
     bool validarUsuario(QString name,QString psswd);
 
+    bool newLoad;
 
 
-    ~DataBase();
+    ~Data_Base();
 private slots:
     void recolectarDatos();
 
 private:
-    Ui::DataBase *ui;
+    Ui::Data_Base *ui;
     QSqlDatabase database;
     QString name;
     QString pass;
     QString name_partida;
+
+    Nombre_Partida *window;
+
+
+
 
     int level;
 
@@ -58,6 +64,8 @@ private:
     int vida_3,score_3;
     int vida_4,score_4;
     int high_score;
+
+
 };
 
-#endif // DATABASE_H
+#endif // DATA_BASE_H

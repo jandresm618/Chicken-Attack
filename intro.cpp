@@ -46,9 +46,13 @@ Intro::~Intro()
 void Intro::newGame()
 {
     //Set Nuevo Juego
+    newLoad=true;
+    this->close();
 }
 
 void Intro::loadGame()
 {
     //Set Load Game
+    newLoad=false;
+    this->close();
 }

@@ -10,5 +10,15 @@
         <file>imagenes/Load.png</file>
         <file>imagenes/exit.png</file>
         <file>imagenes/new.png</file>
+        <file>imagenes/bullet.png</file>
+        <file>imagenes/life.png</file>
+        <file>imagenes/nickgame.png</file>
+        <file>imagenes/password.png</file>
+        <file>imagenes/score.png</file>
+        <file>imagenes/user.png</file>
+        <file>imagenes/nickname.png</file>
+        <file>imagenes/cancel.png</file>
+        <file>imagenes/dificult.png</file>
+        <file>imagenes/done.png</file>
     </qresource>
 </RCC>

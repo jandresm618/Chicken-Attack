@@ -5,8 +5,9 @@
 #include <QGraphicsScene>
 #include "item_grafico.h"
 #include "objeto_mov.h"
-#include "database.h"
+#include "data_base.h"
 #include "intro.h"
+#include "nombre_partida.h"
 
 namespace Ui {
 class MainWindow;
@@ -48,6 +49,8 @@ private:
     QList<Objeto_mov*> bullets;
     QTimer *time_game; //Para contabilizar el tiempo de juego
     Intro* inicio;
+    Nombre_Partida *nom_partida;
+    Data_Base *datos;
 
 
     //VARIABLES DE INFOMACION

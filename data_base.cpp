@@ -1,16 +1,11 @@
-#include "database.h"
-#include "ui_database.h"
+#include "data_base.h"
+#include "ui_data_base.h"
 
-#include <QtSql/QSqlDatabase>
-#include <QtSql/QSqlQuery>
-#include <QtSql/QSqlError>
-
-DataBase::DataBase(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::DataBase)
+Data_Base::Data_Base(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::Data_Base)
 {
     ui->setupUi(this);
-
     QString nombre;
     nombre.append("database_Chicken_Attack.sqlite");
     database= QSqlDatabase::addDatabase("QSQLITE");
@@ -29,7 +24,7 @@ DataBase::DataBase(QWidget *parent) :
 
 }
 
-void DataBase::crearTabladeUsuarios()
+void Data_Base::crearTabladeUsuarios()
 {
 
     //Name-Password
@@ -51,7 +46,7 @@ void DataBase::crearTabladeUsuarios()
     }
 }
 
-void DataBase::crearTabladeDatos()
+void Data_Base::crearTabladeDatos()
 {
     //Name-Vida-Score-Num_jug-turno
     QString consulta;
@@ -61,6 +56,7 @@ void DataBase::crearTabladeDatos()
                     "user VARCHAR(100),"
                     "cant_jugadores INTEGER,"
                     "turno INTEGER,"
+                    "nivel INTEGER,"
                     "vida_uno INTEGER,"
                     "score_uno INTEGER,"
                     "vida_dos INTEGER,"
@@ -82,7 +78,7 @@ void DataBase::crearTabladeDatos()
     }
 }
 
-void DataBase::crearTabladeRecords()
+void Data_Base::crearTabladeRecords()
 {
      //Name-Puntaje
     QString consulta;
@@ -102,7 +98,7 @@ void DataBase::crearTabladeRecords()
     }
 }
 
-void DataBase::insertarUsuario()
+void Data_Base::insertarUsuario()
 {
     QString consulta;
     consulta.append("INSERT INTO usuarios("
@@ -124,7 +120,7 @@ void DataBase::insertarUsuario()
         qDebug()<<"ERROR!"<<insertar.lastError();
     }
 }
-void DataBase::insertarDatos()
+void Data_Base::insertarDatos()
 {
     QString consulta;
     consulta.append("INSERT INTO usuarios("
@@ -132,6 +128,7 @@ void DataBase::insertarDatos()
                     "user ,"
                     "cant_jugadores ,"
                     "turno ,"
+                    "nivel INTEGER,"
                     "vida_uno ,"
                     "score_uno ,"
                     "vida_dos ,"
@@ -146,6 +143,7 @@ void DataBase::insertarDatos()
                     "'"+name+"',"
                     "'"+cant_jugadores+"',"
                     "'"+turno+"',"
+                    "'"+level+"',"
                     "'"+vida_1+"',"
                     "'"+score_1+"',"
                     "'"+vida_2+"',"
@@ -168,7 +166,7 @@ void DataBase::insertarDatos()
 }
 
 
-void DataBase::insertarRecord()
+void Data_Base::insertarRecord()
 {
     QString consulta;
     consulta.append("INSERT INTO usuarios("
@@ -191,7 +189,7 @@ void DataBase::insertarRecord()
     }
 }
 
-void DataBase::mostrarUsuarios()
+void Data_Base::mostrarUsuarios()
 {
     int i=0;
     QString consulta;
@@ -214,7 +212,7 @@ void DataBase::mostrarUsuarios()
 //    }
 }
 
-bool DataBase::validarUsuario(QString name, QString psswd)
+bool Data_Base::validarUsuario(QString name, QString psswd)
 {
     int i=0;
     QString consulta;
@@ -243,15 +241,14 @@ bool DataBase::validarUsuario(QString name, QString psswd)
     }
     return exist;
 }
-
-DataBase::~DataBase()
-{
-    delete ui;
-}
-
-void DataBase::recolectarDatos()
+void Data_Base::recolectarDatos()
 {
     name.append(ui->lineEdit->text());
     pass.append(ui->lineEdit_2->text());
     level=ui->spinBox->value();
+    this->close();
+}
+Data_Base::~Data_Base()
+{
+    delete ui;
 }

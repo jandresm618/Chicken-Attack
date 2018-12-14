@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -30,24 +30,24 @@ SOURCES += \
     item_grafico.cpp \
     movimiento.cpp \
     objeto_mov.cpp \
-    database.cpp \
     intro.cpp \
-    nombre_partida.cpp
+    nombre_partida.cpp \
+    data_base.cpp
 
 HEADERS += \
         mainwindow.h \
     item_grafico.h \
     movimiento.h \
     objeto_mov.h \
-    database.h \
     intro.h \
-    nombre_partida.h
+    nombre_partida.h \
+    data_base.h
 
 FORMS += \
         mainwindow.ui \
-    database.ui \
     intro.ui \
-    nombre_partida.ui
+    nombre_partida.ui \
+    data_base.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
