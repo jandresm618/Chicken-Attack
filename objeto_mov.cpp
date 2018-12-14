@@ -67,16 +67,14 @@ void Objeto_mov::move()
     setPos(sim_mov->getPosicion()->x(),sim_mov->getPosicion()->y());
     //x_lim -> 800, y_limit->600
     if(!id){
-        if(sim_mov->getPosicion()->y()>450){
-//            sim_mov->setAceleracion(0,80);
-            sim_mov->setVelocidad(sim_mov->getVelocidad()->x(),(sim_mov->getVelocidad()->y())*-1);
-            sim_mov->setPosicion(sim_mov->getPosicion()->x(),sim_mov->getPosicion()->y()-15);
-        }
-        if(sim_mov->getPosicion()->y()<190){
-//            sim_mov->setAceleracion(0,20);
-            sim_mov->setVelocidad(sim_mov->getVelocidad()->x()*2,(sim_mov->getVelocidad()->y()*-1));
-            sim_mov->setPosicion(sim_mov->getPosicion()->x(),sim_mov->getPosicion()->y()+15);
-        }
+            if(sim_mov->getPosicion()->y()>450){
+                sim_mov->setVelocidad(sim_mov->getVelocidad()->x(),(sim_mov->getVelocidad()->y())*-1*0.2);
+                sim_mov->setPosicion(sim_mov->getPosicion()->x(),sim_mov->getPosicion()->y()-15);
+            }
+            if(sim_mov->getPosicion()->y()<390){
+                sim_mov->setVelocidad(sim_mov->getVelocidad()->x(),(sim_mov->getVelocidad()->y())*-1*0.2);
+                sim_mov->setPosicion(sim_mov->getPosicion()->x(),sim_mov->getPosicion()->y()+15);
+            }
     }
 }
 

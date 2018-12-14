@@ -8,7 +8,7 @@ Item_Grafico::Item_Grafico(QString path, int x, int y) :x(x),y(y)
 
 QRectF Item_Grafico::boundingRect() const
 {
-    return QRectF(0,0,50,50);
+    return QRectF(0,0,250,250);
 }
 
 void Item_Grafico::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)

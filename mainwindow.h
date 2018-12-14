@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QtSerialPort/QSerialPort>
+#include <QtSerialPort/QSerialPortInfo>
 #include "item_grafico.h"
 #include "objeto_mov.h"
 
@@ -17,9 +19,21 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
 
+    //Arduino
+    void serialInit();
+    void serialRead();
+
+    //Mover mira
+    void keyPressEvent(QKeyEvent *event);
+    void serialEvent(char dir);
+    //Introduccion del juego
+    
+    //
     void cargarJuego();
     void cargarEscena();
     void eliminarEscena();
+    
+    //DO COLLISION
     void eliminacionPor_Limite(Objeto_mov*obj);
     void eliminacionPor_Colision(Objeto_mov*bull,Objeto_mov*enem);
 
@@ -28,6 +42,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QSerialPort serial;
+    char dir;
     QGraphicsScene *scene;
     Item_Grafico *mario;
     Item_Grafico *mira;

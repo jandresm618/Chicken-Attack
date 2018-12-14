@@ -17,12 +17,12 @@ public:
 
     void keyPressEvent(QKeyEvent *event);
 
+    int x,y;
     ~Item_Grafico();
 
 private:
     QPixmap *image;
 
-    int x,y;
 
 signals:
     void shot(int x,int y);

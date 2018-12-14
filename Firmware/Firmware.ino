@@ -51,14 +51,17 @@ void loop()
 
     
     if(joystickX>700 && flag!=1){
-      Serial.print("I");
+      Serial.print("L");
       flag = 1;
-    }else if(joystickX<300 && flag!=2){
-      Serial.print("D");
+    }else if(joystickX<250 && flag!=2){
+      Serial.print("R");
       flag = 2;
     }else if(joystickY>700  && flag!=3){
-      Serial.print("W");
+      Serial.print("U");
       flag = 3;
+    }else if(joystickY<250  && flag!=4){
+      Serial.print("D");
+      flag = 4;
     }
     if(joystickSW!=0)
       Serial.print('S');

@@ -9,5 +9,6 @@
         <file>imagenes/pollo1.png</file>
         <file>imagenes/fondo.png</file>
         <file>imagenes/score_logo.png</file>
+        <file>imagenes/señor2.png</file>
     </qresource>
 </RCC>
