@@ -7,7 +7,7 @@
 #include <QDebug>
 #include "objeto_mov.h"
 
-class Item_Grafico: public QGraphicsPixmapItem
+class Item_Grafico: public QGraphicsItem
 {
 public:
     Item_Grafico(QString path, int x, int y);
@@ -16,11 +16,11 @@ public:
     virtual void paint(QPainter *painter,const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     void keyPressEvent(QKeyEvent *event);
-
+    int x,y;
+    ~Item_Grafico();
 private:
     QPixmap *image;
 
-    int x,y;
 
 signals:
     void shot(int x,int y);

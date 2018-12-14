@@ -5,7 +5,7 @@ Intro::Intro(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Intro)
 {
-    ui->setupUi(this);
+    ui->setupUi(this);    
 
     connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(newGame()));
     connect(ui->pushButton_2,SIGNAL(clicked()),this,SLOT(loadGame()));
@@ -20,6 +20,7 @@ void Intro::setLevelValues(int level)
         h_object=80;
         time_gifts=2000;
         time_adEnemys=2000;
+        porcent=float(0.2);
         break;
 
     case 2:
@@ -27,6 +28,7 @@ void Intro::setLevelValues(int level)
         h_object=60;
         time_gifts=4000;
         time_adEnemys=1500;
+        porcent=float(0.5);
         break;
 
     case 3:
@@ -34,6 +36,7 @@ void Intro::setLevelValues(int level)
         h_object=40;
         time_gifts=7000;
         time_adEnemys=900;
+        porcent=float(0.7);
         break;
     }
 }

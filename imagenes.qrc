@@ -20,5 +20,9 @@
         <file>imagenes/cancel.png</file>
         <file>imagenes/dificult.png</file>
         <file>imagenes/done.png</file>
+        <file>imagenes/fondo.png</file>
+        <file>imagenes/Bala2.png</file>
+        <file>imagenes/pollo2.png</file>
+        <file>imagenes/Bala1.png</file>
     </qresource>
 </RCC>

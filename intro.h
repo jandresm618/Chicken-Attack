@@ -22,6 +22,8 @@ public:
     int time_gifts;       //Modificar la salida de municiones y vida
     int time_adEnemys;    //Modificar la salida de enemigos
 
+    float porcent;
+
 private slots:
     void newGame();
     void loadGame();

@@ -241,6 +241,32 @@ bool Data_Base::validarUsuario(QString name, QString psswd)
     }
     return exist;
 }
+
+void Data_Base::inicializar()
+{
+    if(newLoad){
+        //nuevo juego
+        vida=100;
+        score=0;
+        cant_jugadores=2;
+        turno=1;
+        static_cast<void>(vida_1=100),score_1=0;
+        static_cast<void>(vida_2=100),score_2=0;
+        static_cast<void>(vida_3=0),score_3=0;
+        static_cast<void>(vida_4=0),score_4=0;
+    }
+    else{
+        //cargar juego
+        vida=100;
+        score=0;
+        cant_jugadores=2;
+        turno=1;
+        static_cast<void>(vida_1=100),score_1=0;
+        static_cast<void>(vida_2=100),score_2=0;
+        static_cast<void>(vida_3=0),score_3=0;
+        static_cast<void>(vida_4=0),score_4=0;
+    }
+}
 void Data_Base::recolectarDatos()
 {
     name.append(ui->lineEdit->text());

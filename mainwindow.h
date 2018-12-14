@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QtSerialPort/QSerialPort>
+#include <QtSerialPort/QSerialPortInfo>
 #include "item_grafico.h"
 #include "objeto_mov.h"
 #include "data_base.h"
@@ -19,19 +21,25 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    //INTRODUCCION DEL JUEGO (QWIDGET)
 
-    //MANEJO DE LA BASE DE DATOS  (CARGAR GUARDAR CON SQLITE)
+    //Arduino
+    void serialInit();
+    void serialRead();
 
-    //MOSTRAR MENSAJES EN LA VENTANA ACTUAL
-
-
-
-
-    ////CARGAR JUEGO
-
+    //Mover mira
+    void keyPressEvent(QKeyEvent *event);
+    void serialEvent(char dir);
+    //Introduccion del juego
+    void startGame(int cant);
+    void endGame();
+    //
     void cargarJuego();
-    void cargarEscena();
+    void cargarEscena(int vida, int puntaje);
+    void eliminarEscena();
+
+    //DO COLLISIO
+    void eliminacionPor_Limite(Objeto_mov*obj);
+    void eliminacionPor_Colision(Objeto_mov*bull,Objeto_mov*enem);
 
     ~MainWindow();
 
@@ -39,11 +47,14 @@ private:
 
     //VARIABLES GRAFICAS
     Ui::MainWindow *ui;
+    QSerialPort serial;
+    char dir;
     QGraphicsScene *scene;
     Item_Grafico *mario;
     Item_Grafico *mira;
     Objeto_mov *enemy;
     QTimer *time;    
+    QTimer *colisiones;
     Objeto_mov *bullet;
     QList<Objeto_mov*> enemys;
     QList<Objeto_mov*> bullets;
@@ -65,15 +76,25 @@ private:
     QList<int> pos_enemigos;  //A la hora e cargar
     QList<int> scores_;   //puntajes  A LA HORA DE CARGAR
     int num_balas;   //a la hora de cargar
+    bool flag;
+    float porc;
+    int cont=1;
+    int score2;
 
 signals:
     void shot(int x, int y);
     void iniciar();
+    void incrementarPuntaje(float escala);
+    void restarVida();
+    void end();
 
 private slots:
     void inicioJuego();
     void disparar(int x, int y);
     void agregarEnemigo();
+    void collisiones();
+    void lessLife();
+    void moreScore(float escala);
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
 };

@@ -8,7 +8,7 @@ Item_Grafico::Item_Grafico(QString path, int x, int y) :x(x),y(y)
 
 QRectF Item_Grafico::boundingRect() const
 {
-    return QRectF(0,0,50,50);
+    return QRectF(0,0,185,350);
 }
 
 void Item_Grafico::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -39,4 +39,9 @@ void Item_Grafico::keyPressEvent(QKeyEvent *event)
     else if(event->key() == Qt::Key_Space /*&& armaFlag*/){
         qDebug()<<"Disparo";
     }
+}
+
+Item_Grafico::~Item_Grafico()
+{
+    delete image;
 }

@@ -34,10 +34,22 @@ public:
 
     bool validarUsuario(QString name,QString psswd);
 
+    void inicializar();
+
     bool newLoad;
 
 
     ~Data_Base();
+    int level;
+
+    int vida=100;
+    int score=0;
+    int cant_jugadores;
+    int turno;
+    int vida_1,score_1;
+    int vida_2,score_2;
+    int vida_3,score_3;
+    int vida_4,score_4;
 private slots:
     void recolectarDatos();
 
@@ -53,16 +65,6 @@ private:
 
 
 
-    int level;
-
-    int vida;
-    int score;
-    int cant_jugadores;
-    int turno;
-    int vida_1,score_1;
-    int vida_2,score_2;
-    int vida_3,score_3;
-    int vida_4,score_4;
     int high_score;
 
 
