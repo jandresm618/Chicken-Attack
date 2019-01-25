@@ -1,8 +1,11 @@
 #ifndef ESCENA_H
 #define ESCENA_H
 
+#include <QGraphicsView>
+#include <QGraphicsScene>
 
-class Escena
+
+class Escena : public QGraphicsView
 {
 public:
     Escena();

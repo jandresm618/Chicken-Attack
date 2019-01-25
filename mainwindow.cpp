@@ -6,18 +6,35 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    inicio=new Intro;    
+    //Se inicializa el contenedor de datos
+    datos=new Data_Base;
+
+    //Recoleccion de datos de usuario
+    inicio=new Intro;
     inicio->setModal(true);
     inicio->exec();
 
-    datos=new Data_Base;
-    datos->setModal(true);
-    datos->exec();
-    datos->newLoad=inicio->newLoad;
-
+    ngame=new NewGame;
     nom_partida=new Nombre_Partida;
-    nom_partida->setModal(true);
-    nom_partida->exec();
+
+    if(inicio->newLoad){
+        //Nuevo juego
+        ngame->setModal(true);
+        ngame->exec();
+        if(!datos->validarUsuario(ngame->name,ngame->password)){
+            //Usuario y contraseña invalidos
+            datos->exec();
+        }
+    }
+    else{
+        //Cargar juego
+        nom_partida->setModal(true);
+        nom_partida->exec();
+    }
+
+
+
+    this->show();
 
     serialInit();
 
@@ -35,13 +52,16 @@ void MainWindow::cargarJuego()
     //Todos los connect
     //Opcional path de imagenes o escenarios
 
+
     connect(this,&MainWindow::restarVida,this,&MainWindow::lessLife);
     connect(time,&QTimer::timeout,this,&MainWindow::agregarEnemigo);
+    connect(serialport,&QTimer::timeout,this,&MainWindow::serialMove);
     connect(this,&MainWindow::shot,this,&MainWindow::disparar);
     time->start(2000);
-    connect(colisiones,&QTimer::timeout,this,&MainWindow::collisiones);
 //        time->start(inicio->time_adEnemys);
+    connect(colisiones,&QTimer::timeout,this,&MainWindow::collisiones);
     colisiones->start(30);
+    serialport->start(500);
 }
 
 void MainWindow::serialInit()
@@ -137,7 +157,8 @@ void MainWindow::startGame(int cant)
     QString d;
     if(cant==1){
         this->showFullScreen();
-        cargarEscena(datos->vida,datos->score);
+                cargarEscena(100,0);
+//        cargarEscena(datos->vida,datos->score);
         QMessageBox::information(this,"TURNO "+d.number(cont),  "PLAYER "+d.number(cont));
         cargarJuego();
     }
@@ -176,6 +197,8 @@ void MainWindow::cargarEscena(int vida, int puntaje)
         blood=datos->vida_2; score=datos->score_2;
     }
     porc=inicio->porcent;
+    score=0;
+    blood=100;
     ui->progressBar->setValue(blood);
     ui->lcdNumber->display(score);
     //estatico ->Pos Mario, Pos rocas, pos mira, posiciones de salida de enemigos;
@@ -191,6 +214,7 @@ void MainWindow::cargarEscena(int vida, int puntaje)
     time=new QTimer;
     time_game=new QTimer;
     colisiones=new QTimer;
+    serialport=new QTimer;
 
     scene->addItem(mario);
     scene->addItem(mira);
@@ -222,35 +246,40 @@ void MainWindow::eliminarEscena()
 void MainWindow::eliminacionPor_Limite(Objeto_mov *obj)
 {
     if(obj->getId()){
+        //Es bala
         if(obj->x()>limit_x ){
+            // Bala sale del cuadro sin destino
             scene->removeItem(obj);
             bullets.removeOne(obj);
-//            delete obj;
-            qDebug()<<"Eliminado 1 ";
+            delete obj;
         }
         else if(obj->x()<50){
-            //
+            // NO EXISTE ESTE CASO
+
             scene->removeItem(obj);
             bullets.removeOne(obj);
             delete obj;
 
         }
         else if(obj->y()>limit_y | obj->y()<0) {
-            qDebug()<<"Limte Superior e inferior";
+//            qDebug()<<"Limte Superior e inferior";
             scene->removeItem(obj);
             bullets.removeOne(obj);
-//            delete obj;
+            delete obj;
         }
     }
     else{
+        //Es Pollo
         if(obj->x()>limit_x ){
+            //ENEMIGO SALE DEL LIMITE DERECHO (NO EXISTE ESTE CASO)
             scene->removeItem(obj);
             enemys.removeOne(obj);
             delete obj;
             qDebug()<<"Eliminado 2";
         }
         else if(obj->x()<50){
-            //
+
+            //ENEMIGO SALE DEL LIMITE IZQUIERDO(RESTA VIDA)
             scene->removeItem(obj);
             enemys.removeOne(obj);
             delete obj;
@@ -270,14 +299,14 @@ void MainWindow::eliminacionPor_Colision(Objeto_mov *bull, Objeto_mov *enem)
     if(!enem->collidingItems().empty()){
         qDebug()<<"Colision";
         if(enem->collidesWithItem(bull)){
-            qDebug()<<"eliminado";
+//            qDebug()<<"eliminado";
             scene->removeItem(enem);
             scene->removeItem(bull);
             enemys.removeOne(enem);
             bullets.removeOne(bull);
             delete enem;
             delete bull;
-            emit incrementarPuntaje(0.3);
+            emit incrementarPuntaje(1.3);
         }
     }
 //    if(enem->collidingItems().empty())qDebug()<<"No hay colisiones";
@@ -295,16 +324,19 @@ void MainWindow::eliminacionPor_Colision(Objeto_mov *bull, Objeto_mov *enem)
 
 void MainWindow::collisiones()
 {
-    serialRead();
-    serialEvent(dir);
+
     foreach(Objeto_mov *bull, this->bullets){
         foreach(Objeto_mov *enem,this->enemys){
 //            if(bull->collidingItems().empty())qDebug()<<"VACIOO";
 //            if(enem->collidingItems().empty())qDebug()<<"VACIOO";
-            eliminacionPor_Limite(enem);
-            eliminacionPor_Limite(bull);
             if(!bullets.empty()& !enemys.empty()){
                 eliminacionPor_Colision(bull,enem);
+//                emit moreScore(0.1);
+            }
+            else{
+                eliminacionPor_Limite(enem);
+                eliminacionPor_Limite(bull);
+
             }
         }
     }
@@ -329,13 +361,43 @@ void MainWindow::lessLife()
 
 void MainWindow::moreScore(float escala)
 {
-    score+=10*escala;
+    score+=10;
     ui->lcdNumber->display(score);
+}
+
+void MainWindow::serialMove()
+{
+    serialRead();
+    serialEvent(dir);
 }
 void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
     qDebug()<<"Mouse moving";
     QMainWindow::mouseMoveEvent(event);
+}
+
+void MainWindow::stop()
+{
+    connect(this,&MainWindow::restarVida,this,&MainWindow::lessLife);
+    connect(time,&QTimer::timeout,this,&MainWindow::agregarEnemigo);
+    connect(serialport,&QTimer::timeout,this,&MainWindow::serialMove);
+    connect(this,&MainWindow::shot,this,&MainWindow::disparar);
+    time->start(2000);
+    connect(colisiones,&QTimer::timeout,this,&MainWindow::collisiones);
+//        time->start(inicio->time_adEnemys);
+    colisiones->start(30);
+    serialport->start(500);
+
+}
+
+void MainWindow::guardar()
+{
+    QMessageBox msgBox;
+    msgBox.setText("The document has been modified.");
+    msgBox.setInformativeText("Do you want to save your changes?");
+    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    msgBox.setDefaultButton(QMessageBox::Save);
+    int ret = msgBox.exec();
 }
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
@@ -368,4 +430,61 @@ void MainWindow::agregarEnemigo()
     enemys.append(enemy);
     scene->addItem(enemy);
     escala*=0.2;
+}
+
+void MainWindow::on_actionSave_triggered()
+{
+
+    QMessageBox msgBox;
+    msgBox.setText("The document has been modified.");
+    msgBox.setInformativeText("Do you want to save your changes?");
+    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    msgBox.setDefaultButton(QMessageBox::Save);
+    int ret = msgBox.exec();
+}
+
+void MainWindow::on_actionPause_triggered()
+{
+    qDebug()<<"Que pasa mucho mas arriba";
+    //Pausar el Juego
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("PAUSE");
+    msgBox.setText("Click to continue");
+    QPushButton *continuar = msgBox.addButton(tr("Continue"), QMessageBox::ActionRole);
+
+    qDebug()<<"Que pasa mas arriba";
+
+    disconnect(this,&MainWindow::shot,this,&MainWindow::disparar);
+    time->stop();
+
+    qDebug()<<"Que pasa";
+    foreach(Objeto_mov *pollos, enemys){
+        pollos->pause();
+    }
+    msgBox.exec();
+    if (msgBox.clickedButton() == continuar) {
+        // continuar
+        connect(this,&MainWindow::shot,this,&MainWindow::disparar);
+        time->start(2000);
+        foreach(Objeto_mov *pollos, enemys){
+            pollos->continuee();
+        }
+    }
+}
+
+void MainWindow::on_actionExit_triggered()
+{
+    QMessageBox msgBox;
+    QPushButton *exitButton = msgBox.addButton(tr("EXIT"), QMessageBox::ActionRole);
+    QPushButton *abortButton = msgBox.addButton(QMessageBox::Abort);
+
+    msgBox.exec();
+
+    if (msgBox.clickedButton() == exitButton) {
+        // connect
+        eliminarEscena();
+        this->close();
+    } else if (msgBox.clickedButton() == abortButton) {
+        // abort
+    }
 }

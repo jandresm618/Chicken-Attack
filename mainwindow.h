@@ -5,11 +5,14 @@
 #include <QGraphicsScene>
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
+#include <QPushButton>
+#include <QAbstractButton>
 #include "item_grafico.h"
 #include "objeto_mov.h"
 #include "data_base.h"
 #include "intro.h"
 #include "nombre_partida.h"
+#include "newgame.h"
 
 namespace Ui {
 class MainWindow;
@@ -61,6 +64,7 @@ private:
     QTimer *time_game; //Para contabilizar el tiempo de juego
     Intro* inicio;
     Nombre_Partida *nom_partida;
+    NewGame *ngame;
     Data_Base *datos;
 
 
@@ -80,6 +84,7 @@ private:
     float porc;
     int cont=1;
     int score2;
+    QTimer *serialport;
 
 signals:
     void shot(int x, int y);
@@ -95,8 +100,15 @@ private slots:
     void collisiones();
     void lessLife();
     void moreScore(float escala);
+    void serialMove();
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
+
+    void stop();
+    void guardar();
+    void on_actionSave_triggered();
+    void on_actionPause_triggered();
+    void on_actionExit_triggered();
 };
 
 #endif // MAINWINDOW_H

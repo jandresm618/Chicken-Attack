@@ -32,7 +32,9 @@ SOURCES += \
     objeto_mov.cpp \
     intro.cpp \
     nombre_partida.cpp \
-    data_base.cpp
+    data_base.cpp \
+    escena.cpp \
+    newgame.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -41,13 +43,16 @@ HEADERS += \
     objeto_mov.h \
     intro.h \
     nombre_partida.h \
-    data_base.h
+    data_base.h \
+    escena.h \
+    newgame.h
 
 FORMS += \
         mainwindow.ui \
     intro.ui \
     nombre_partida.ui \
-    data_base.ui
+    data_base.ui \
+    newgame.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -50,6 +50,16 @@ void Objeto_mov::movimiento()
     time_move->start(50);
 }
 
+void Objeto_mov::pause()
+{
+    time_move->stop();
+}
+
+void Objeto_mov::continuee()
+{
+    time_move->start(50);
+}
+
 //void Objeto_mov::collides()
 //{
 ////    qDebug()<<"verificando colisiones";
@@ -92,4 +102,11 @@ bool Objeto_mov::getId() const
 void Objeto_mov::setId(bool value)
 {
     id = value;
+}
+
+Objeto_mov::~Objeto_mov()
+{
+    delete image;
+    delete sim_mov;
+    delete time_move;
 }

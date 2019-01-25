@@ -54,17 +54,12 @@ void Data_Base::crearTabladeDatos()
                     "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     "nombre VARCHAR(100),"
                     "user VARCHAR(100),"
-                    "cant_jugadores INTEGER,"
                     "turno INTEGER,"
                     "nivel INTEGER,"
                     "vida_uno INTEGER,"
                     "score_uno INTEGER,"
                     "vida_dos INTEGER,"
-                    "score_dos INTEGER,"
-                    "vida_tres INTEGER,"
-                    "score_tres INTEGER,"
-                    "vida_cuatro INTEGER,"
-                    "score_cuatro INTEGER"
+                    "score_dos INTEGER"
 
                     ");");
     QSqlQuery crear;
@@ -120,38 +115,52 @@ void Data_Base::insertarUsuario()
         qDebug()<<"ERROR!"<<insertar.lastError();
     }
 }
+
+void Data_Base::insertarUsuario(QString user, QString passw)
+{
+    QString consulta;
+    consulta.append("INSERT INTO usuarios("
+                    "nombre,"
+                    "contraseña"
+                    ")"
+                    "VALUES("
+                    "'"+user+"',"
+                    "'"+passw+"'"
+                    ");");
+    QSqlQuery insertar;
+    qDebug()<<consulta;
+    insertar.prepare(consulta);
+    if(insertar.exec()){
+        qDebug()<<"Se ha ingresado el usuario correctamente.";
+    }
+    else {
+        qDebug()<<"El usuario no se ha ingresado";
+        qDebug()<<"ERROR!"<<insertar.lastError();
+    }
+
+}
 void Data_Base::insertarDatos()
 {
     QString consulta;
     consulta.append("INSERT INTO usuarios("
                     "nombre ,"
                     "user ,"
-                    "cant_jugadores ,"
                     "turno ,"
                     "nivel INTEGER,"
                     "vida_uno ,"
                     "score_uno ,"
                     "vida_dos ,"
-                    "score_dos ,"
-                    "vida_tres ,"
-                    "score_tres ,"
-                    "vida_cuatro ,"
-                    "score_cuatro "
+                    "score_dos "
                     ")"
                     "VALUES("
                     "'"+name_partida+"',"
                     "'"+name+"',"
-                    "'"+cant_jugadores+"',"
                     "'"+turno+"',"
                     "'"+level+"',"
                     "'"+vida_1+"',"
                     "'"+score_1+"',"
                     "'"+vida_2+"',"
-                    "'"+score_2+"',"
-                    "'"+vida_3+"',"
-                    "'"+score_3+"',"
-                    "'"+vida_4+"',"
-                    "'"+score_4+"'"
+                    "'"+score_2+"'"
                     ");");
     QSqlQuery insertar;
     qDebug()<<consulta;
@@ -214,7 +223,6 @@ void Data_Base::mostrarUsuarios()
 
 bool Data_Base::validarUsuario(QString name, QString psswd)
 {
-    int i=0;
     QString consulta;
     bool exist=false;
     consulta.append("SELECT * FROM usuarios"
@@ -230,8 +238,9 @@ bool Data_Base::validarUsuario(QString name, QString psswd)
     }
     while(mostrar.next()){
         if(mostrar.value(1).toByteArray().constData()==name){
+            user=true;
             if(mostrar.value(1).toByteArray().constData()==psswd){
-                exist=true;  //Devuelve true si el usuario es correcto
+                password=true;  //Devuelve true si el usuario es correcto
                              //Falso otherwise
             }
         }
@@ -239,40 +248,24 @@ bool Data_Base::validarUsuario(QString name, QString psswd)
             QMessageBox::information(this,"WARNING",  "CONTRASÑA INVALIDA");
         }
     }
+    if(user & password)exist=true;
+
     return exist;
 }
 
-void Data_Base::inicializar()
-{
-    if(newLoad){
-        //nuevo juego
-        vida=100;
-        score=0;
-        cant_jugadores=2;
-        turno=1;
-        static_cast<void>(vida_1=100),score_1=0;
-        static_cast<void>(vida_2=100),score_2=0;
-        static_cast<void>(vida_3=0),score_3=0;
-        static_cast<void>(vida_4=0),score_4=0;
-    }
-    else{
-        //cargar juego
-        vida=100;
-        score=0;
-        cant_jugadores=2;
-        turno=1;
-        static_cast<void>(vida_1=100),score_1=0;
-        static_cast<void>(vida_2=100),score_2=0;
-        static_cast<void>(vida_3=0),score_3=0;
-        static_cast<void>(vida_4=0),score_4=0;
-    }
-}
 void Data_Base::recolectarDatos()
 {
     name.append(ui->lineEdit->text());
     pass.append(ui->lineEdit_2->text());
-    level=ui->spinBox->value();
-    this->close();
+
+    if(validarUsuario(name,pass))this->close();
+    else if (!user)  QMessageBox::information(this,"WARNING",  "USUARIO INVALIDO");
+    else if(!password) QMessageBox::information(this,"WARNING",  "CONTRASÑA INVALIDA");
+    else{
+        QMessageBox::information(this,"WARNING",  "USUARIO NO EXISTENTE, SE INSETARA UN NUEVO USUARIO.");
+        insertarUsuario();
+    }
+
 }
 Data_Base::~Data_Base()
 {
