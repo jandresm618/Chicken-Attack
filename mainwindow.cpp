@@ -23,13 +23,16 @@ MainWindow::MainWindow(QWidget *parent) :
         ngame->exec();
         if(datos->validarUsuario(ngame->name,ngame->password)){
             //Usuario y contraseña validos
+            QMessageBox::information(this,"WARNING",  "Usuario y contraseña validos");
         }
         else if(datos->user && !datos->password){
             //Usuario Valido contraseña incorrecta
+            QMessageBox::information(this,"WARNING",  "//Usuario Valido contraseña incorrecta");
         }
         else{
             //El usuario no existe
-            if(crearNuevoUsuario())datos->exec();
+//            if(crearNuevoUsuario())datos->exec();
+            QMessageBox::information(this,"WARNING",  "El usuario no existe");
         }
     }
     else{
