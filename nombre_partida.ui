@@ -29,21 +29,24 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>480</x>
-     <y>130</y>
+     <x>490</x>
+     <y>20</y>
      <width>171</width>
      <height>41</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/imagenes/nickname.png);</string>
+   </property>
    <property name="text">
-    <string>NOMBRE DE LA PARTIDA</string>
+    <string/>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">
     <rect>
-     <x>480</x>
-     <y>170</y>
+     <x>490</x>
+     <y>70</y>
      <width>181</width>
      <height>21</height>
     </rect>
@@ -52,14 +55,69 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>500</x>
-     <y>230</y>
-     <width>111</width>
+     <x>540</x>
+     <y>300</y>
+     <width>151</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/imagenes/done.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>346</x>
+     <y>140</y>
+     <width>151</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/imagenes/user.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>200</y>
+     <width>141</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/imagenes/password.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_2">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>150</y>
+     <width>181</width>
      <height>31</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Aceptar</string>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_3">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>210</y>
+     <width>181</width>
+     <height>31</height>
+    </rect>
    </property>
   </widget>
  </widget>

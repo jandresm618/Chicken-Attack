@@ -21,8 +21,13 @@ public:
     void movimiento();
 //    void collides();
 
+    void pause();
+    void continuee();
+
     bool getId() const;
     void setId(bool value);
+
+    ~Objeto_mov();
 
 private slots:
     void move();

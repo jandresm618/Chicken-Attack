@@ -20,11 +20,13 @@ class Data_Base : public QDialog
 
 public:
     explicit Data_Base(QWidget *parent = nullptr);
+
     void crearTabladeUsuarios();
     void crearTabladeDatos();
     void crearTabladeRecords();
 
     void insertarUsuario();
+    void insertarUsuario(QString user, QString pass);
     void insertarDatos();
     void insertarRecord();
 
@@ -34,22 +36,18 @@ public:
 
     bool validarUsuario(QString name,QString psswd);
 
-    void inicializar();
+    //Varibles que validan el usuario y la contraseña
+    bool user, password;
 
-    bool newLoad;
 
-
-    ~Data_Base();
     int level;
 
-    int vida=100;
-    int score=0;
-    int cant_jugadores;
-    int turno;
+    bool turno;
     int vida_1,score_1;
     int vida_2,score_2;
-    int vida_3,score_3;
-    int vida_4,score_4;
+
+    ~Data_Base();
+
 private slots:
     void recolectarDatos();
 
@@ -59,11 +57,6 @@ private:
     QString name;
     QString pass;
     QString name_partida;
-
-    Nombre_Partida *window;
-
-
-
 
     int high_score;
 

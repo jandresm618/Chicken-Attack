@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QMessageBox>
+#include <QSqlQuery>
 
 namespace Ui {
 class Nombre_Partida;
@@ -14,11 +15,17 @@ class Nombre_Partida : public QDialog
 
 public:
     explicit Nombre_Partida(QWidget *parent = nullptr);
+    QString nom_partida;
+    QString user, password;
+
+    void validarUsuario();
+    bool validarNickname();
+
     ~Nombre_Partida();
 
 private:
     Ui::Nombre_Partida *ui;
-    QString nom_partida;
+    bool name,pass;
 
 private slots:
     void recolectar();
