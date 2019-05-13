@@ -5,7 +5,6 @@
         <file>imagenes/mira.png</file>
         <file>imagenes/mira1.png</file>
         <file>imagenes/pollo.png</file>
-        <file>imagenes/señor1.png</file>
         <file>imagenes/intro.png</file>
         <file>imagenes/Load.png</file>
         <file>imagenes/exit.png</file>
@@ -24,5 +23,38 @@
         <file>imagenes/Bala2.png</file>
         <file>imagenes/pollo2.png</file>
         <file>imagenes/Bala1.png</file>
+        <file>imagenes/senor1.png</file>
+        <file>imagenes/nick.png</file>
+        <file>imagenes/BULLET.png</file>
+        <file>imagenes/CANCEL.png</file>
+        <file>imagenes/DIFICULT.png</file>
+        <file>imagenes/DONE.png</file>
+        <file>imagenes/EXIT.png</file>
+        <file>imagenes/LIFE.png</file>
+        <file>imagenes/LOAD GAME.png</file>
+        <file>imagenes/NEW USER.png</file>
+        <file>imagenes/NICKNAME.png</file>
+        <file>imagenes/OLD USER.png</file>
+        <file>imagenes/PASSWORD.png</file>
+        <file>imagenes/SCORE.png</file>
+        <file>imagenes/USER.png</file>
+        <file>imagenes/ARCADE.png</file>
+        <file>imagenes/Arcade.png</file>
+        <file>imagenes/multiplayer.png</file>
+        <file>imagenes/MULTIPLAYER.png</file>
+        <file>imagenes/BACK.png</file>
+        <file>imagenes/BLOOD.png</file>
+        <file>imagenes/BULLETS.png</file>
+        <file>imagenes/LOG IN.png</file>
+        <file>imagenes/PLAYERS.png</file>
+        <file>imagenes/RECORDS.png</file>
+        <file>imagenes/RESTART.png</file>
+        <file>imagenes/SAVE AS.png</file>
+        <file>imagenes/SING UP.png</file>
+        <file>imagenes/index.png</file>
+        <file>imagenes/MENU.png</file>
+        <file>imagenes/GIFT.png</file>
+        <file>imagenes/MATCH NAME.png</file>
+        <file>imagenes/explode.png</file>
     </qresource>
 </RCC>

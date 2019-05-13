@@ -5,19 +5,22 @@ Objeto_mov::Objeto_mov()
 
 }
 
-Objeto_mov::Objeto_mov(int x)
+Objeto_mov::Objeto_mov(int x,float dt) :dT(dt)
 {
-    sim_mov=new Movimiento(50);
+    //Gift
+    id=2;
+    sim_mov=new Movimiento(x,dt);
     sim_mov->setPosicion(x,0);
     setPos(x,0);
-    image=new QPixmap(":/imagenes/pollo.png");
+    image=new QPixmap(":/imagenes/gift.png");
     movimiento();
 }
 
-Objeto_mov::Objeto_mov(bool opc, int x, int y, int xf, int yf, int h, int w): h(h),w(w)
+Objeto_mov::Objeto_mov(bool opc, int x, int y, int xf, int yf, int h, int w, float dt): h(h),w(w), dT(dt)
 {
     if(opc){
-        sim_mov=new Movimiento(opc,x,y,xf,yf);
+        //BULLET
+        sim_mov=new Movimiento(opc,x,y,xf,yf,dt);
         sim_mov->setPosicion(x,y);
         image=new QPixmap(":/imagenes/Bala2.png");
         setPos(x,y);
@@ -25,7 +28,9 @@ Objeto_mov::Objeto_mov(bool opc, int x, int y, int xf, int yf, int h, int w): h(
         id=true;// Es BALA
     }
     else{
-        sim_mov=new Movimiento(opc,x,y,xf,yf);
+        //ENEMY
+        sim_mov=new Movimiento(opc,x,y,xf,yf,dt);
+//        sim_mov=new Movimiento(1,1);
         sim_mov->setPosicion(x,y);
         image=new QPixmap(":/imagenes/pollo2.png");
         setPos(x,y);
@@ -45,19 +50,20 @@ void Objeto_mov::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 
 void Objeto_mov::movimiento()
 {
-    time_move=new QTimer;
-    connect(time_move,&QTimer::timeout,this,&Objeto_mov::move);
-    time_move->start(50);
+    timer_move=new QTimer;
+    connect(timer_move,&QTimer::timeout,this,&Objeto_mov::move);
+//    timer_move->start(time_move);
+    timer_move->start(100);
 }
 
 void Objeto_mov::pause()
 {
-    time_move->stop();
+    timer_move->stop();
 }
 
 void Objeto_mov::continuee()
 {
-    time_move->start(50);
+    timer_move->start(50);
 }
 
 //void Objeto_mov::collides()
@@ -78,20 +84,24 @@ void Objeto_mov::continuee()
 
 void Objeto_mov::move()
 {
-    sim_mov->actualizar(float(0.01));
+//    sim_mov->actualizar(float(dT));
+    sim_mov->actualizar(0.01);
     setPos(sim_mov->getPosicion()->x(),sim_mov->getPosicion()->y());
-    //x_lim -> 800, y_limit->600
-//    if(sim_mov->getPosicion()->x()>800 | sim_mov->getPosicion()->y()>600){
-//        delete this;
-//    }
-//    if(sim_mov->getPosicion()->x()<0 | sim_mov->getPosicion()->y()<0){
-//        delete this;
-//    }
+
     if(sim_mov->getPosicion()->y()>650){
         sim_mov->setVelocidad(sim_mov->getVelocidad()->x()*0.2,(sim_mov->getVelocidad()->y())*-1*0.5);
         sim_mov->setPosicion(sim_mov->getPosicion()->x(),sim_mov->getPosicion()->y()-15);
     }
-//    collides();
+}
+
+int Objeto_mov::getTime_move() const
+{
+    return time_move;
+}
+
+void Objeto_mov::setTime_move(int value)
+{
+    time_move = value;
 }
 
 bool Objeto_mov::getId() const
@@ -104,9 +114,24 @@ void Objeto_mov::setId(bool value)
     id = value;
 }
 
+float Objeto_mov::getX()
+{
+    return sim_mov->getX();
+}
+
+float Objeto_mov::getY()
+{
+    return sim_mov->getX();
+}
+
+void Objeto_mov::setDt(float dt)
+{
+    dT=dt;
+}
+
 Objeto_mov::~Objeto_mov()
 {
     delete image;
     delete sim_mov;
-    delete time_move;
+    delete timer_move;
 }

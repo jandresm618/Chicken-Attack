@@ -5,25 +5,30 @@
 #include <QPainter>
 #include <QKeyEvent>
 #include <QDebug>
-#include "objeto_mov.h"
+
 
 class Item_Grafico: public QGraphicsItem
 {
 public:
-    Item_Grafico(QString path, int x, int y);
+    Item_Grafico(QString path, int x, int y, int _id);
 
     virtual QRectF boundingRect() const;
     virtual void paint(QPainter *painter,const QStyleOptionGraphicsItem *option, QWidget *widget);
 
+    void move();
+
     void keyPressEvent(QKeyEvent *event);
     int x,y;
+    int id;
+    int cont=0;
+
     ~Item_Grafico();
 private:
     QPixmap *image;
 
 
-signals:
-    void shot(int x,int y);
+
+
 };
 
 #endif // ITEM_GRAFICO_H

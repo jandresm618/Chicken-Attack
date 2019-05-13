@@ -1,19 +1,39 @@
 #include "item_grafico.h"
 
-Item_Grafico::Item_Grafico(QString path, int x, int y) :x(x),y(y)
+Item_Grafico::Item_Grafico(QString path, int x, int y,int _id) :x(x),y(y)
 {
     image=new QPixmap(path);
     setPos(x,y);
+    //true para el regalo y false para el resto
+    id=_id;
 }
 
 QRectF Item_Grafico::boundingRect() const
 {
-    return QRectF(0,0,185,350);
+    if(id==1){
+        //Regalo
+        return QRectF(0,0,100,100);
+    }
+    else if (id==2) {
+        //Explosion
+        return QRectF(0,0,150,150);
+    }
+    else {
+        //Cualquier otro
+
+        return QRectF(0,0,185,350);
+    }
 }
 
 void Item_Grafico::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     painter->drawPixmap(boundingRect(),*image,image->rect());
+}
+
+void Item_Grafico::move()
+{
+    y+=10;
+    setPos(x,y);
 }
 
 void Item_Grafico::keyPressEvent(QKeyEvent *event)

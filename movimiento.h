@@ -1,7 +1,7 @@
 #ifndef MOVIMIENTO_H
 #define MOVIMIENTO_H
 
-#define DT 0.1
+//#define DT 0.1
 
 #include <QPoint>
 #include <QDebug>
@@ -13,10 +13,10 @@ class Movimiento
 {
 public:
     Movimiento();
-    Movimiento(bool opc,int x, int y, int xf,int yf); //1->Rectilineo, 0->Parabolico con destino
+    Movimiento(bool opc, int x, int y, int xf, int yf, float dt); //1->Rectilineo, 0->Parabolico con destino
     Movimiento(int x, int y);
-    Movimiento(int x);
-    Movimiento(float tipo,bool direccion); //Constructor con el tipo y la direccion del movimiento
+    Movimiento(int x, float dt);
+    Movimiento(int tipo, bool direccion); //Constructor con el tipo y la direccion del movimiento
 
     void setPosicion(float _x, float _y);   // METODOS SET
     void setVelocidad(float _x, float _y);
@@ -47,6 +47,12 @@ public:
 
 
 
+    float getX() const;
+    void setX(float value);
+
+    float getY() const;
+    void setY(float value);
+
 private:
     float h,w;       //alto y ancho
     float x;
@@ -56,6 +62,7 @@ private:
     float ax;
     float ay;
 
+    float DT;
         void calculaPosicion(float dt);         //METODO DE ECUACION CINEMATICA DE POSICION
         void calculaVelocidad(float dt);        //METODO DE ECUACION CINEMATICA DE VELOCIDAD
     void calculaVelInicial (float xf, float yf, float dt);                   //METODO QUE CALCULA EL ANGULO

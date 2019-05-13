@@ -30,29 +30,28 @@ SOURCES += \
     item_grafico.cpp \
     movimiento.cpp \
     objeto_mov.cpp \
-    intro.cpp \
     nombre_partida.cpp \
-    data_base.cpp \
     escena.cpp \
-    newgame.cpp
+    control_usuario.cpp \
+    database.cpp \
+    menu.cpp
 
 HEADERS += \
         mainwindow.h \
     item_grafico.h \
     movimiento.h \
     objeto_mov.h \
-    intro.h \
     nombre_partida.h \
-    data_base.h \
     escena.h \
-    newgame.h
+    control_usuario.h \
+    database.h \
+    menu.h
 
 FORMS += \
         mainwindow.ui \
-    intro.ui \
     nombre_partida.ui \
-    data_base.ui \
-    newgame.ui
+    control_usuario.ui \
+    menu.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -63,4 +62,28 @@ RESOURCES += \
     imagenes.qrc
 
 DISTFILES += \
-    imagenes/fondo.png
+    imagenes/fondo.png \
+    imagenes/Bala1.png \
+    imagenes/Bala2.png \
+    imagenes/bullet.png \
+    imagenes/cancel.png \
+    imagenes/dificult.png \
+    imagenes/done.png \
+    imagenes/exit.png \
+    imagenes/fondo.png \
+    imagenes/intro.png \
+    imagenes/life.png \
+    imagenes/Load.png \
+    imagenes/mario.png \
+    imagenes/mira.png \
+    imagenes/mira1.png \
+    imagenes/new.png \
+    imagenes/nickgame.png \
+    imagenes/nickname.png \
+    imagenes/password.png \
+    imagenes/pollo.png \
+    imagenes/pollo2.png \
+    imagenes/score.png \
+    imagenes/user.png \
+    imagenes/senor1.png \
+    imagenes/nick.png
