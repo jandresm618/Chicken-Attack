@@ -25,7 +25,7 @@ public:
 
     void setDataBase(const DataBase &datos);
 
-
+    void setLoadGameValues();
 
 
     ~Menu();
@@ -35,6 +35,7 @@ private slots:
     void bot_multiplayer_clicked();
     void bot_record_clicked();
     void bot_exit_clicked();
+    void bot_LoadGame_clicked();
     void begin();
 
 private:
@@ -51,6 +52,7 @@ private:
     QLabel *dificult_label;
     QLabel *players_label;
     QLabel *match_name_label;
+    QLabel *title;
 
     QLineEdit *match_name_ask;
 
@@ -67,6 +69,7 @@ private:
 
     int w,h;
     bool flag;
+    bool load=false;
 
 };
 

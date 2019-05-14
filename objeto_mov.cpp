@@ -85,12 +85,18 @@ void Objeto_mov::continuee()
 void Objeto_mov::move()
 {
 //    sim_mov->actualizar(float(dT));
-    sim_mov->actualizar(0.01);
+    sim_mov->actualizar(0.007);
     setPos(sim_mov->getPosicion()->x(),sim_mov->getPosicion()->y());
 
-    if(sim_mov->getPosicion()->y()>650){
-        sim_mov->setVelocidad(sim_mov->getVelocidad()->x()*0.2,(sim_mov->getVelocidad()->y())*-1*0.5);
-        sim_mov->setPosicion(sim_mov->getPosicion()->x(),sim_mov->getPosicion()->y()-15);
+    if(!id){
+        if(sim_mov->getPosicion()->y()>650){
+            sim_mov->setVelocidad(sim_mov->getVelocidad()->x()*0.7,(sim_mov->getVelocidad()->y())*-1*0.9);
+            sim_mov->setPosicion(sim_mov->getPosicion()->x(),sim_mov->getPosicion()->y()-15);
+        }
+        if(sim_mov->getPosicion()->y()<250){
+            sim_mov->setVelocidad(sim_mov->getVelocidad()->x()*1.1,(sim_mov->getVelocidad()->y())/**-1*//**0.4*/+100);
+            sim_mov->setPosicion(sim_mov->getPosicion()->x(),sim_mov->getPosicion()->y()/*+20*/);
+        }
     }
 }
 

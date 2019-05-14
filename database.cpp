@@ -43,7 +43,7 @@ void DataBase::crearTabladeDatos()
 {
     //Name-Vida-Score-Num_jug-turno
     QString consulta;
-    consulta.append("CREATE TABLE IF NOT EXISTS datos_juego("
+    consulta.append("CREATE TABLE IF NOT EXISTS data("
                     "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                     "nombre VARCHAR(100),"
                     "user VARCHAR(100),"
@@ -136,26 +136,79 @@ void DataBase::insertarUsuario(QString user, QString passw)
 }
 void DataBase::insertarDatos()
 {
+    QString default_name="arcade";
+    QString default_user="javier";
+    int turno=1;
+    int nivel=1;
+    int vida=100;
+    int score=0;
+    int num_pla=1;
+    int score_2=0;
+    int score_3=0;
+    int score_4=0;
     QString consulta;
-    consulta.append("INSERT INTO usuarios("
+    consulta.append("INSERT INTO data("
                     "nombre ,"
                     "user ,"
                     "turno ,"
-                    "nivel INTEGER,"
+                    "nivel ,"
                     "vida_uno ,"
                     "score_uno ,"
-                    "vida_dos ,"
-                    "score_dos "
+                    "num_jugadores ,"
+                    "score_dos ,"
+                    "score_tres ,"
+                    "score_cuatro "
                     ")"
                     "VALUES("
-                    "'"+name_partida+"',"
-                    "'"+name+"',"
+                    "'"+default_name+"',"
+                    "'"+default_user+"',"
                     "'"+turno+"',"
-                    "'"+level+"',"
-                    "'"+vida_1+"',"
-                    "'"+score_1+"',"
-                    "'"+vida_2+"',"
-                    "'"+score_2+"'"
+                    "'"+nivel+"',"
+                    "'"+vida+"',"
+                    "'"+score+"',"
+                    "'"+num_pla+"',"
+                    "'"+score_2+"',"
+                    "'"+score_3+"',"
+                    "'"+score_4+"'"
+                    ")");
+    QSqlQuery insertar;
+    qDebug()<<consulta;
+    insertar.prepare(consulta);
+    if(insertar.exec()){
+        qDebug()<<"Se ha ingresado el usuario correctamente.";
+    }
+    else {
+        qDebug()<<"El usuario no se ha ingresado";
+        qDebug()<<"ERROR!"<<insertar.lastError();
+    }
+}
+void DataBase::insertarDatos(QString name, QString user, int turno, int level, int vida, int score,
+                             int num_jug, int score_2, int score_3, int score_4)
+{
+    QString consulta;
+    consulta.append("INSERT INTO data("
+                    "nombre ,"
+                    "user ,"
+                    "turno ,"
+                    "nivel ,"
+                    "vida_uno ,"
+                    "score_uno ,"
+                    "num_jugadores ,"
+                    "score_dos ,"
+                    "score_tres ,"
+                    "score_cuatro "
+                    ")"
+                    "VALUES("
+                    "'"+name+"',"
+                    "'"+user+"',"
+                    "'"+QString::number(turno)+"',"
+                    "'"+QString::number(level)+"',"
+                    "'"+QString::number(vida)+"',"
+                    "'"+QString::number(score)+"',"
+                    "'"+QString::number(num_jug)+"',"
+                    "'"+QString::number(score_2)+"',"
+                    "'"+QString::number(score_3)+"',"
+                    "'"+QString::number(score_4)+"'"
                     ");");
     QSqlQuery insertar;
     qDebug()<<consulta;
@@ -169,19 +222,21 @@ void DataBase::insertarDatos()
     }
 }
 
-void DataBase::insertarDatos(QString name, QString user, int turno, int level, int vida, int score,
-                             int num_jug, int score_2, int score_3, int score_4)
+void DataBase::insertarDatos(QString name, QString user, QString turno, QString level, QString vida, QString score,
+                             QString num_jug, QString score_2, QString score_3, QString score_4)
 {
     QString consulta;
-    consulta.append("INSERT INTO usuarios("
+    consulta.append("INSERT INTO data("
                     "nombre ,"
                     "user ,"
                     "turno ,"
-                    "nivel INTEGER,"
+                    "nivel ,"
                     "vida_uno ,"
                     "score_uno ,"
-                    "vida_dos ,"
-                    "score_dos "
+                    "num_jugadores ,"
+                    "score_dos ,"
+                    "score_tres ,"
+                    "score_cuatro "
                     ")"
                     "VALUES("
                     "'"+name+"',"
@@ -193,7 +248,7 @@ void DataBase::insertarDatos(QString name, QString user, int turno, int level, i
                     "'"+num_jug+"',"
                     "'"+score_2+"',"
                     "'"+score_3+"',"
-                    "'"+score_4+"',"
+                    "'"+score_4+"'"
                     ");");
     QSqlQuery insertar;
     qDebug()<<consulta;
@@ -211,7 +266,7 @@ void DataBase::insertarDatos(QString name, QString user, int turno, int level, i
 void DataBase::insertarRecord()
 {
     QString consulta;
-    consulta.append("INSERT INTO usuarios("
+    consulta.append("INSERT INTO record("
                     "nombre ,"
                     "best_score "
                     ")"
@@ -230,10 +285,10 @@ void DataBase::insertarRecord()
         qDebug()<<"ERROR!"<<insertar.lastError();
     }
 }
-void DataBase::insertarRecord(QString name,int high_score)
+void DataBase::insertarRecord(QString name,QString high_score)
 {
     QString consulta;
-    consulta.append("INSERT INTO usuarios("
+    consulta.append("INSERT INTO record("
                     "nombre ,"
                     "best_score "
                     ")"
@@ -277,10 +332,66 @@ void DataBase::mostrarUsuarios()
 //        qDebug()<<mostrar.value(1).toByteArray().constData();
 //        ui->tableWidget->insertRow(i);
 //        ui->tableWidget->setItem(i,0,new QTableWidgetItem("que pasa"));
-//    }
+    //    }
 }
 
-bool DataBase::validarUsuario(QString name, QString psswd)
+void DataBase::mostrarDatos()
+{
+    int i=0;
+    QString r;
+    QString consulta;
+    consulta.append("SELECT * FROM data"
+                    );
+    QSqlQuery mostrar;
+    mostrar.prepare(consulta);
+    if(mostrar.exec()){
+        qDebug()<<"Se ha mostrado el usuario correctamente.";
+    }
+    else {
+        qDebug()<<"El usuario no se ha mostrado";
+        qDebug()<<"ERROR!"<<mostrar.lastError();
+    }
+    while (mostrar.next()) {
+        qDebug()<<"nombre de partida"<<mostrar.value(1).toByteArray().constData();
+        qDebug()<<"usuario"<<mostrar.value(2).toByteArray().constData();
+        qDebug()<<"turno"<<mostrar.value(3).toByteArray().constData();
+        qDebug()<<"nivel"<<mostrar.value(4).toByteArray().constData();
+        qDebug()<<"vida"<<mostrar.value(5).toByteArray().constData();
+        r=mostrar.value(5).toByteArray().constData();
+        qDebug()<<"puntaje"<<mostrar.value(6).toByteArray().constData();
+        qDebug()<<"numero de jugadores"<<mostrar.value(7).toByteArray().constData();
+        qDebug()<<"score 2"<<mostrar.value(8).toByteArray().constData();
+        qDebug()<<"score 3"<<mostrar.value(9).toByteArray().constData();
+        qDebug()<<"score 4"<<mostrar.value(10).toByteArray().constData();
+        qDebug()<<"tatata"<<r.toInt()+20;
+    }
+}
+
+void DataBase::mostrarRecord()
+{
+    int i=0;
+    QString r;
+    QString consulta;
+    consulta.append("SELECT * FROM record"
+                    );
+    QSqlQuery mostrar;
+    mostrar.prepare(consulta);
+    if(mostrar.exec()){
+        qDebug()<<"Se ha mostrado el usuario correctamente.";
+    }
+    else {
+        qDebug()<<"El usuario no se ha mostrado";
+        qDebug()<<"ERROR!"<<mostrar.lastError();
+    }
+    while (mostrar.next()) {
+        qDebug()<<"nombre de partida"<<mostrar.value(1).toByteArray().constData();
+        r=mostrar.value(2).toByteArray().constData();
+        qDebug()<<"record "<< r<< "  "<<QString::number(r.toInt());
+
+    }
+}
+
+bool DataBase::validarUsuario(QString _name, QString _psswd)
 {
     QString consulta;
     bool exist=false;
@@ -296,13 +407,14 @@ bool DataBase::validarUsuario(QString name, QString psswd)
         qDebug()<<"ERROR!"<<mostrar.lastError();
     }
     while(mostrar.next()){
-        if(mostrar.value(1).toByteArray().constData()==name){
+        if(mostrar.value(1).toByteArray().constData()==_name){
             user=true;
+            name=_name;
             qDebug()<<"coincide el usuario";
-            qDebug()<<mostrar.value(2).toByteArray().constData();
-            qDebug()<<"vs";
-            qDebug()<<psswd;
-            if(mostrar.value(2).toByteArray().constData()==psswd){
+            if(mostrar.value(2).toByteArray().constData()==_psswd){
+                qDebug()<<mostrar.value(2).toByteArray().constData();
+                qDebug()<<"vs";
+                qDebug()<<_psswd;
 
                 password=true;  //Devuelve true si el usuario es correcto
                              //Falso otherwise
@@ -319,7 +431,7 @@ bool DataBase::validarMatchName(QString name)
     //Verifica si en la tabla esta disponible el nombre
     QString consulta;
     bool able=true;
-    consulta.append("SELECT * FROM record"
+    consulta.append("SELECT * FROM data"
                     );
     QSqlQuery mostrar;
     mostrar.prepare(consulta);
@@ -334,12 +446,12 @@ bool DataBase::validarMatchName(QString name)
         if(mostrar.value(1).toByteArray().constData()==name){
             able=false;
             qDebug()<<"Nombre no disponible";
-        }
+        }        
     }
-    if(able){
-        qDebug()<<"Nombre disponible";
-        name_partida=name;
-    }
+//    if(able){
+//        qDebug()<<"Nombre disponible";
+//        name_partida=name;
+//    }
 
     return able;
 }
@@ -357,6 +469,16 @@ QString DataBase::getName_partida() const
 void DataBase::setName_partida(const QString &value)
 {
     name_partida = value;
+}
+
+QString DataBase::getName() const
+{
+    return name;
+}
+
+void DataBase::setName(const QString &value)
+{
+    name = value;
 }
 
 bool DataBase::getUser() const

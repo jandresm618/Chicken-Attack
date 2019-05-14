@@ -35,11 +35,18 @@ public:
     void serialRead();
 
     void setDificult(int val);
+    void setLoadGameValues();
+
+    void showWinner();
+
+    void continuar();
+    void stop();
 
     //Mover mira
     void keyPressEvent(QKeyEvent *event);
     void serialEvent(char dir);
     //Introduccion del juego
+    void inicioJuego();
     void startGame(int cant);
     void endGame();
     //
@@ -59,6 +66,9 @@ public:
 
     ~MainWindow();
 
+
+    QString getMatch_name() const;
+    void setMatch_name(const QString &value);
 
 private:
 
@@ -94,24 +104,25 @@ private:
     QString user;
     int turno;
     int nivel;
-    int vida;
-    int score_actual;
+    int vida=100;
+    int score_actual=0;
     int num_players; //para 1 o mas jugadores
-    int score_2;
-    int score_3;
-    int score_4;
+    int score_2=0;
+    int score_3=0;
+    int score_4=0;
 
     float dt;
 
     int time_add=2000;
     int time_gift=5000;
+    int time_serial=150;
+    int time_col=50;
 
     QList<int> pos_enemigos;  //A la hora e cargar  //*
     QList<int> scores_;   //puntajes  A LA HORA DE CARGAR
     bool flag;
     float porc;
-    int cont=1;
-    int score2;
+    int cont=1;    
 
 signals:
     void shot(int x, int y);
@@ -122,8 +133,9 @@ signals:
     void incrementarPuntaje(float escala);
     void restarVida();
 
+
 private slots:
-    void inicioJuego();
+//    void inicioJuego();
     void disparar(int x, int y);
     void agregarEnemigo();
     void agregarRegalo();
@@ -136,7 +148,6 @@ private slots:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
 
-    void stop();
     void guardar();
     void on_actionSave_triggered();
     void on_actionPause_triggered();

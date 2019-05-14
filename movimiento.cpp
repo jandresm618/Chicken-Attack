@@ -29,7 +29,7 @@ void Movimiento::setPosicion(float _x, float _y)
 {
     x=_x; y=_y;
 }
-void Movimiento::setVelocidad(float _x, float _y)
+void Movimiento::   setVelocidad(float _x, float _y)
 {
     vx=_x; vy=_y;
 }
@@ -94,8 +94,8 @@ void Movimiento::actualizar(float dt)
     QString d;
     calculaVelocidad(dt);
     calculaPosicion(dt);
-//    qDebug()<<"x"<<d.number(x);
-//    qDebug()<<"y"<<d.number(y);
+    qDebug()<<"x"<<d.number(x);
+    qDebug()<<"y"<<d.number(y);
 }
 
 void Movimiento::movParabolico()
@@ -105,9 +105,11 @@ void Movimiento::movParabolico()
 
 void Movimiento::movParabolico(int x, int y)
 {
-    setAceleracion(0,-10);
-    calculaVelInicial(x,y,DT);
-//    setVelocidad(10,-10);
+//    setAceleracion(-10,40);
+////    calculaVelInicial(x,y,DT);
+//    setVelocidad(-1000,-5);
+    setAceleracion(0,300);
+    setVelocidad(-(700+rand()%4000),300+rand()%800);
 }
 
 void Movimiento::movRectilineo()

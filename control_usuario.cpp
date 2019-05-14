@@ -34,7 +34,7 @@ Control_Usuario::   Control_Usuario(QWidget *parent) :
     new_user = new QPushButton("",this);
     known_user = new QPushButton("",this);
 
-    exit->setStyleSheet("border-image: url(:/imagenes/EXIT.png);");
+    exit->setStyleSheet("border-image: url(:/imagenes/BACK.png);");
     done->setStyleSheet("border-image: url(:/imagenes/DONE.png);");
 
     new_user->setStyleSheet("border-image: url(:/imagenes/SING UP.png);");
@@ -51,6 +51,12 @@ Control_Usuario::   Control_Usuario(QWidget *parent) :
 
     exit->hide();
     done->hide();
+    user_ask->hide();
+    user_label->hide();
+    password_ask->hide();
+    password_label->hide();
+    repassword_ask->hide();
+    repassword_label->hide();
 
     new_user->setGeometry(lim_x*3/4-80,lim_y/2,300,110);
     known_user->setGeometry(lim_x*3/4-80,lim_y/2+100,300,100);
@@ -67,7 +73,20 @@ Control_Usuario::   Control_Usuario(QWidget *parent) :
 void Control_Usuario::bot_salir_clicked()
 {
     //Boton Salir Presionado
-    this->close();
+    user_label->hide();
+    user_ask->hide();
+    password_label->hide();
+    password_ask->hide();
+    done->hide();
+    exit->hide();
+    if(newuser){
+        repassword_ask->hide();
+        repassword_label->hide();
+    }
+
+    new_user->show();
+    known_user->show();
+
 }
 
 void Control_Usuario::bot_newUser_clicked()

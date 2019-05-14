@@ -22,16 +22,18 @@ public:
     void insertarUsuario();
     void insertarUsuario(QString user, QString pass);
     void insertarDatos();
-    void insertarDatos(QString name, QString user, int turno, int level, int vida,
-                       int score, int num_jug, int score_2,int score_3,int score_4);
+    void insertarDatos(QString name, QString user, QString turno, QString level, QString vida,
+                       QString score, QString num_jug, QString score_2, QString score_3, QString score_4);
+    void insertarDatos(QString name, QString user, int turno, int level, int vida, int score,
+                                 int num_jug, int score_2, int score_3, int score_4);
     void insertarRecord();
-    void insertarRecord(QString name,int high_score);
+    void insertarRecord(QString name, QString high_score);
 
     void mostrarUsuarios();
     void mostrarDatos();
     void mostrarRecord();
 
-    bool validarUsuario(QString name,QString psswd);
+    bool validarUsuario(QString _name, QString _psswd);
     bool validarMatchName(QString name);
 
     bool getUser() const;
@@ -53,6 +55,9 @@ public:
 
     QString getName_partida() const;
     void setName_partida(const QString &value);
+
+    QString getName() const;
+    void setName(const QString &value);
 
 private:
     QSqlDatabase database;

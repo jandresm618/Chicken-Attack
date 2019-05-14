@@ -56,5 +56,6 @@
         <file>imagenes/GIFT.png</file>
         <file>imagenes/MATCH NAME.png</file>
         <file>imagenes/explode.png</file>
+        <file>imagenes/swamp.png</file>
     </qresource>
 </RCC>
