@@ -67,6 +67,7 @@ Menu::Menu(QWidget *parent) :
     records->setStyleSheet("border-image: url(:/imagenes/RECORDS.png);");
     exit->setStyleSheet("border-image: url(:/imagenes/EXIT.png);");
     done->setStyleSheet("border-image: url(:/imagenes/DONE.png);");
+    back->setStyleSheet("border-image: url(:/imagenes/BACK.png);");
 
     dificult->setStyleSheet("border-image: url(:/imagenes/index.png);");
     how_many->setStyleSheet("border-image: url(:/imagenes/index.png);");
@@ -83,6 +84,7 @@ Menu::Menu(QWidget *parent) :
     connect(exit,&QPushButton::released,this,&Menu::bot_exit_clicked);
     connect(done,&QPushButton::released,this,&Menu::begin);
     connect(load_game,&QPushButton::released,this,&Menu::bot_LoadGame_clicked);
+    connect(back,&QPushButton::released,this,&Menu::pushed_back);
 }
 
 void Menu::setDataBase(const DataBase &datos)
@@ -142,6 +144,30 @@ void Menu::begin()
         }
     }
 }
+
+void Menu::pushed_back()
+{
+    arcade->show();
+    multiplayer->show();
+    load_game->show();
+    records->show();
+    exit->show();
+    back->hide();
+    if(load){
+        load=false;
+        records_table->hide();
+        title->hide();
+        match_name_ask->hide();
+        match_name_label->hide();
+        done->hide();
+    }
+    else {
+        records_table->hide();
+        done->hide();
+        title->hide();
+    }
+}
+
 
 Menu::~Menu()
 {
@@ -239,6 +265,7 @@ void Menu::bot_record_clicked()
     records_table->show();
     title->show();
     title->setStyleSheet("border-image: url(:/imagenes/RECORDS.png);");
+    back->show();back-> setGeometry(w*3/4-150,h*3/4,150,100);
 
     records_table->setRowCount(10);
     records_table->setColumnCount(2);
@@ -348,6 +375,7 @@ void Menu::bot_LoadGame_clicked(){
     match_name_ask->show();
     match_name_label->show();
     done->show();
+    back->show();back-> setGeometry(w*3/4-150,h*3/4,150,100);
 
     title->show();
     title->setStyleSheet("border-image: url(:/imagenes/LOAD GAME.png);");

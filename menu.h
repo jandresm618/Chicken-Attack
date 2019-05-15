@@ -37,6 +37,7 @@ private slots:
     void bot_exit_clicked();
     void bot_LoadGame_clicked();
     void begin();
+    void pushed_back();
 
 private:
     Ui::Menu *ui;
