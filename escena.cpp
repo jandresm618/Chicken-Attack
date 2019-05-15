@@ -191,8 +191,13 @@ void Escena::reset()
         delete  bull;
 
     }
+    foreach(Item_Grafico *gif, this->gifts){
+        delete  gif;
+
+    }
     enemys.clear();
     bullets.clear();
+    gifts.clear();
     //resetar los valores
     life=100; score=0;
 

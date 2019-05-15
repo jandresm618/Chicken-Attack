@@ -46,11 +46,12 @@ void MainWindow::restart()
     stop();
     game->reset();
     actualizar();
-    QMessageBox *msBox;
-    msBox->setWindowTitle("RESTART");
-    msBox->setText("CLICK TO PLAY");
-    QPushButton *continua=msBox->addButton(tr("LET'S PLAY"),QMessageBox::ActionRole);
-    if(msBox->clickedButton()==continua)cargarJuego();
+//    QMessageBox *msBox = nullptr;
+//    msBox->setWindowTitle("RESTART");
+//    msBox->setText("CLICK TO PLAY");
+//    QPushButton *continua=msBox->addButton(tr("LET'S PLAY"),QMessageBox::ActionRole);
+//    if(msBox->clickedButton()==continua)cargarJuego();
+    cargarJuego();
     cont=1;
 }
 
@@ -178,7 +179,7 @@ void MainWindow::setDificult(int val)
         //level 1
         level=1;
         time_add=5000;
-        time_gift=20000;
+        time_gift=12000;
         bullets=30;
         dt=0.1;
 
@@ -187,7 +188,7 @@ void MainWindow::setDificult(int val)
         //level 2
         level=2;
         time_add=3000;
-        time_gift=25000;
+        time_gift=15000;
         bullets=20;
         dt=0.08;
     }
@@ -195,7 +196,7 @@ void MainWindow::setDificult(int val)
         //level 3
         level=3;
         time_add=1000;
-        time_gift=30000;
+        time_gift=20000;
         bullets=10;
         dt=0.05;
     }
@@ -465,7 +466,7 @@ void MainWindow::game_overed()
     if(cont<num_players && num_players!=1){
         //Siguiente turno
         cont++;
-        stop();
+//        stop();
         QMessageBox::information(this,"TURNO "+QString::number(cont),  "PLAYER "+QString::number(cont));
         restart();
     }
